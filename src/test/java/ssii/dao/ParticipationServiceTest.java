@@ -67,4 +67,28 @@ public class ParticipationServiceTest {
         assertThrows(IllegalStateException.class, () ->
                 participationService.enregistrerParticipation(finalPersonne.getMatricule(), finalProjet.getCode(), "Manager", 20));
     }
+
+    @Test
+    void testEnregistrerParticipationSansPersonne() {
+        // Ajouter un projet
+        var projet = new Projet("Projet 3");
+        projet = projetRepository.save(projet);
+
+        // Essayer d'enregistrer une participation sans personne existante
+        Projet finalProjet = projet;
+        assertThrows(IllegalArgumentException.class, () ->
+                participationService.enregistrerParticipation(9999, finalProjet.getCode(), "Chef", 40));
+    }
+
+    @Test
+    void testEnregistrerParticipationSansProjet() {
+        // Ajouter une personne
+        var personne = new Personne("Alice", "Smith");
+        personne = personneRepository.save(personne);
+
+        // Essayer d'enregistrer une participation sans projet existant
+        Personne finalPersonne = personne;
+        assertThrows(IllegalArgumentException.class, () ->
+                participationService.enregistrerParticipation(finalPersonne.getMatricule(), 9999, "Chef", 40));
+    }
 }
