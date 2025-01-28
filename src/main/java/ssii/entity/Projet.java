@@ -7,17 +7,16 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-@ToString
-public class Personne {
+public class Projet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer matricule;
+    private Integer code;
 
     @NonNull
     private String nom;
 
-    @NonNull
-    private String prenom;
+    private String description;
 }
